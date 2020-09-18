@@ -25,7 +25,7 @@
             <h3 class="text-2xl font-semibold">
               List of {{ $route.name }}            
             </h3>
-            <button class="rounded hover:shadow-lg font-bold px-5 py-2 font-nunito bg-half flex items-center">
+            <button @click="showModal" class="dark-btn">
               <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path></svg>
               Add New
             </button>
@@ -50,12 +50,29 @@
           </tbody>
         </table>
       </base-card>
+
     </zoom-y-transition>
+    <form @submit.prevent="submitAction">
+      <t-modal
+        :header="$route.name"
+        v-model="$store.state.showModal"
+      >
+        <component :is="formComponent" :formRecord="formRecord"></component>
+        <template v-slot:footer>
+          <div class="flex justify-between">
+            <button type="submit" class="dark-btn">
+              Submit
+            </button>
+          </div>
+        </template>
+      </t-modal>
+    </form>
   </div>
 </template>
 
 <script>
 import { ZoomYTransition } from 'vue2-transitions'
+import { mapMutations, mapGetters } from 'vuex'
 export default {
   components: {
     ZoomYTransition
@@ -66,17 +83,80 @@ export default {
     },
     moduleName: {
       type: String
-    }
+    },
+    formComponent: Object,
+    formRecord: Object,
+    customSubmitAction: Function
+  },
+  computed: {
+    ...mapGetters(['isEditing'])
   },
   methods: {
-    fetchData() {
+    ...mapMutations(['setShowModal', 'setIsEditing']),
+    showModal() {
+      this.$emit('reset-data')
+      this.setShowModal()
+      this.setIsEditing(false)
+    },
+    async fetchData() {
       this.$Progress.start()
-      this.$store.dispatch(`${this.moduleName}/fetchAll`)
+      try {
+        await this.$store.dispatch(`${this.moduleName}/fetchAll`)
+        this.$Progress.finish()
+      } catch (error) {
+        console.error(error)
+      }
+    },
+
+    async submitAction() {
+      this.$Progress.start()
+      if (this.customSubmitAction) {
+        await this.customSubmitAction()
+        this.$Progress.finish()
+      } else {
+        if (this.isEditing) {
+          try {
+            await this.$store.dispatch(`${this.moduleName}/updateData`, this.formRecord)
+            this.$Progress.finish()
+            this.setShowModal()
+            this.$swal(
+              'Success',
+              'Data Updated',
+              'success'
+            )
+          } catch (error) {
+            this.$Progress.fail()
+            this.$swal(
+              'Failed',
+              'Fail Updating Data',
+              'error'
+            )
+          }
+        } else {
+          try {
+            console.log(this.isEditing)
+            await this.$store.dispatch(`${this.moduleName}/storeData`, this.formRecord)
+            this.$Progress.finish()
+            this.setShowModal()
+            this.$swal(
+              'Success',
+              'Data Created',
+              'success'
+            )
+          } catch (error) {
+            this.$Progress.fail()
+            this.$swal(
+              'Failed',
+              'Fail Creating Data',
+              'error'
+            )
+          }
+        }
+      }
     }
   },
   mounted() {
     this.fetchData()
-    this.$Progress.finish()
   }
 }
 </script>

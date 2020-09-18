@@ -2,7 +2,10 @@
   <div>
     <crud-layout
       :columns="columns"
-      :moduleName="`users`"
+      :moduleName="moduleName"
+      :formRecord="formRecord"
+      :formComponent="formComponent"
+      @reset-data="resetData"
     >
       <tr class="hover:bg-gray-700" v-for="(user, index) in users.data" :key="user.id">
         <td class="px-4 py-3">
@@ -24,7 +27,7 @@
           {{ user.role | capitalize }}
         </td>
         <td>
-          <action-button />
+          <action-button @fill-data="fillData" :record="user" :moduleName="moduleName" :formRecord="formRecord" />
         </td>
       </tr>
     </crud-layout>
@@ -34,6 +37,7 @@
 <script>
 import CrudLayout from '@/layouts/CrudLayout.vue'
 import ActionButton from '@/components/ActionButton.vue'
+import UserForm from '@/forms/UserForm.vue'
 import { mapGetters } from 'vuex'
 export default {
   components: {
@@ -46,7 +50,24 @@ export default {
     })
   },
   data: () => ({
-    columns: ['Full Name', 'username', 'email', 'phone number', 'role']
+    columns: ['Full Name', 'username', 'email', 'phone number', 'role'],
+    formComponent: UserForm,
+    moduleName: 'users',
+    formRecord: {}
   }),
+  methods: {
+    resetData() {
+      this.formRecord = {
+        full_name: '',
+        username: '',
+        email: '',
+        phone_number: '',
+        password: '',
+      }
+    },
+    fillData(record) {
+      this.formRecord = { ...record }
+    },
+  }
 }
 </script>

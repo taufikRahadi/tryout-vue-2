@@ -19,6 +19,33 @@ export default {
       } catch (error) {
         throw Error(error)        
       }
+    },
+    async storeData({ dispatch }, payload) {
+        try {
+          const { data } = await http.post('product', payload)
+          await dispatch('fetchAll')
+          return data
+      } catch ({ response }) {
+          throw new Error(response.data.message)
+      }
+    },
+    async updateData({ dispatch }, payload) {
+      try {
+        const { data } = await http.put('product/' + payload.id, payload.data)
+        dispatch('fetchAll')
+        return data
+      } catch ({ response }) {
+          throw new Error(response.data.message)
+      }
+    },
+    async destroyData({ dispatch }, payload) {
+      try {
+        const { data } = await http.delete('product/' + payload.id)
+        await dispatch('fetchAll')
+        return data
+      } catch ({ response }) {
+          throw new Error(response.data.message)
+      }
     }
   },
   getters: {

@@ -16,6 +16,18 @@ body {
 .card-header {
   @apply px-5 py-5 font-semibold;
 }
+.input-group {
+  @apply bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight;
+}
+.input-group:focus {
+  @apply outline-none bg-white border-purple-500;
+}
 .card-body {
   @apply px-5 pb-5;
+}
+.dark-btn {
+  @apply rounded font-bold px-5 py-2 font-nunito bg-half flex items-center;
+}
+.dark-btn:hover {
+  @apply shadow-lg;
 }

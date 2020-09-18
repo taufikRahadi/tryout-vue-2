@@ -18,6 +18,35 @@ export default {
       } catch (error) {
         throw new Error(error)
       }
+    },
+    async storeData({ dispatch }, payload) {
+      try {
+          const { data } = await http.post('out', { data: payload })
+          dispatch('fetchAll')
+          return data
+      } catch ({ response }) {
+          throw new Error(response.data.message)
+      }
+    },
+
+    async updateData({ dispatch }, payload) {
+        try {
+            const { data } = await http.put('out/' + payload.id, { data: payload })
+            dispatch('fetchAll')
+            return data
+        } catch ({ response }) {
+            throw new Error(response.data.message)
+        }
+    },
+
+    async destroyData({ dispatch }, payload) {
+        try {
+            const { data } = await http.delete('out/' + payload.id)
+            dispatch('fetchAll')
+            return data
+        } catch ({ response }) {
+            throw new Error(response.data.message)
+        }
     }
   },
   getters: {

@@ -2,7 +2,10 @@
   <div>
     <crud-layout
       :columns="columns"
-      :moduleName="`productsIncome`"
+      :moduleName="moduleName"
+      :formComponent="formComponent"
+      :formRecord="formRecord"
+      @reset-data="resetData"
     >
       <tr class="hover:bg-gray-700" v-for="(product, index) in products.data" :key="product.id">
         <td class="px-4 py-3 font-bold text-center">
@@ -15,10 +18,10 @@
           {{ product.total }}
         </td>
         <td class="px-4 py-3">
-          {{ product.Product.name }}
+          {{ product.Product.name | capitalize }}
         </td>
         <td>
-          <action-button />
+          <action-button @fill-data="fillData" :record="product" :formRecord="formRecord" :moduleName="moduleName" />
         </td>
       </tr>
     </crud-layout>
@@ -28,6 +31,7 @@
 <script>
 import CrudLayout from '@/layouts/CrudLayout.vue'
 import ActionButton from '@/components/ActionButton.vue'
+import ProductIncomeForm from '@/forms/ProductIncomeForm.vue'
 import { mapGetters } from 'vuex'
 export default {
   components: {
@@ -40,7 +44,22 @@ export default {
     })
   },
   data: () => ({
-    columns: ['date', 'total', 'product name', '']
-  })
+    columns: ['date', 'total', 'product name', ''],
+    formRecord: {},
+    formComponent: ProductIncomeForm,
+    moduleName: 'productsIncome'
+  }),
+  methods: {
+    resetData() {
+      this.formRecord = {
+        date: "",
+        total: '',
+        productId: ''
+      }
+    },
+    fillData(record) {
+      this.formRecord = { ...record, productId: record.Product.id }
+    }
+  }
 }
 </script>

@@ -10,8 +10,16 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
+    showModal: false,
+    isEditing: false,
   },
   mutations: {
+    setShowModal(state, val) {
+      state.showModal = val ? val : !state.showModal
+    },
+    setIsEditing(state, val) {
+      state.isEditing = val ? val : !state.isEditing
+    }
   },
   actions: {
   },
@@ -21,5 +29,9 @@ export default new Vuex.Store({
     users,
     productsIncome,
     productsOutcome
+  },
+  getters: {
+    showModal: state => state.showModal,
+    isEditing: state => state.isEditing
   }
 })
