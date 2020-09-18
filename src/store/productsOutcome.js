@@ -11,7 +11,7 @@ export default {
     }
   },
   actions: {
-    async fetchAll({ commit }, payload = '?limit=10&1') {
+    async fetchAll({ commit }, payload = '?limit=10&page=1') {
       try {
         const { data } = await http.get('out' + payload)
         commit('setProductsOut', data.data)

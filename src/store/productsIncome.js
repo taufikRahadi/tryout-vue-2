@@ -12,7 +12,7 @@ export default {
     }
   },
   actions: {
-    async fetchAll({ commit }, payload = '?limit=10&page=10') {
+    async fetchAll({ commit }, payload = '?limit=10&page=1') {
       try {
         const { data } = await http.get('in' + payload)
         commit('setProductsIn', data.data)
