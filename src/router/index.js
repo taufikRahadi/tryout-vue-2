@@ -24,7 +24,7 @@ const routes = [
       {
         name: 'product income',
         path: 'product-income',
-        component: () => import(/* webpackChunkName: 'Product Income Layout */'../views/Master/ProductsIncome.vue')
+        component: () => import(/* webpackChunkName: 'Product Income Layout' */'../views/Master/ProductsIncome.vue')
       },
       {
         name: 'product outcome',
@@ -39,12 +39,9 @@ const routes = [
     ]
   },
   {
-    path: '/about',
-    name: 'About',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
+    name: 'login',
+    path: '/login',
+    component: () => import(/* webpackChunkName: 'Auth Layout' */'../views/Auth/Login.vue'),
   }
 ]
 
