@@ -12,9 +12,9 @@
       <input type="number" class="input-group" @change="total" v-model="formRecord.total">
     </form-group>
     <form-group label="Choose Product">
-      <select v-model="formRecord.productId" class="input-group">
+      <select v-model="formRecord.product_id" class="input-group">
         <option value="">Pick a Product</option>
-        <option v-for="product in $store.state.products.products.data" :key="product.id" :value="product.id">
+        <option :selected="product.id === formRecord.product_id" v-for="product in $store.state.products.products.data" :key="product.id" :value="product.id">
           {{ product.name }}
         </option>
       </select>

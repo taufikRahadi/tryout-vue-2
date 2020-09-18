@@ -6,13 +6,14 @@
       :formRecord="formRecord"
       :formComponent="formComponent"
       @reset-data="resetData"
+      :data="products"
     >
       <tr class="hover:bg-gray-700" v-for="(product, index) in products.data" :key="product.id">
         <td class="px-4 py-3">
           {{ index + 1 }}
         </td>
         <td class="px-4 py-3">
-          {{ product.date }}
+          {{ product.date | readableDate }}
         </td>
         <td class="px-4 py-3">
           {{ product.total }}
@@ -44,7 +45,7 @@ export default {
     })
   },
   data: () => ({
-    columns: ['date', 'total', 'product name', ''],
+    columns: ['date', 'total', 'product name'],
     formRecord: {},
     formComponent: ProductOutcomeForm,
     moduleName: 'productsOutcome'
@@ -54,11 +55,12 @@ export default {
       this.formRecord = {
         date: "",
         total: '',
-        productId: ''
+        product_id: ''
       }
     },
     fillData(record) {
-      this.formRecord = { ...record, productId: record.Product.id }
+      console.log(record)
+      this.formRecord = {  ...record, product_id: record.Product.id }
     }
   }
 }

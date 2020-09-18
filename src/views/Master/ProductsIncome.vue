@@ -6,19 +6,20 @@
       :formComponent="formComponent"
       :formRecord="formRecord"
       @reset-data="resetData"
+      :data="products"
     >
       <tr class="hover:bg-gray-700" v-for="(product, index) in products.data" :key="product.id">
         <td class="px-4 py-3 font-bold text-center">
           {{ index + 1 }}
         </td>
         <td class="px-4 py-3">
-          {{ product.date }}
+          {{ product.date | readableDate }}
         </td>
         <td class="px-4 py-3">
           {{ product.total }}
         </td>
         <td class="px-4 py-3">
-          {{ product.Product.name | capitalize }}
+          <!-- {{ product.Product.name | capitalize }} -->
         </td>
         <td>
           <action-button @fill-data="fillData" :record="product" :formRecord="formRecord" :moduleName="moduleName" />
@@ -44,7 +45,7 @@ export default {
     })
   },
   data: () => ({
-    columns: ['date', 'total', 'product name', ''],
+    columns: ['date', 'total', 'product name'],
     formRecord: {},
     formComponent: ProductIncomeForm,
     moduleName: 'productsIncome'
@@ -54,11 +55,11 @@ export default {
       this.formRecord = {
         date: "",
         total: '',
-        productId: ''
+        product_id: ''
       }
     },
     fillData(record) {
-      this.formRecord = { ...record, productId: record.Product.id }
+      this.formRecord = { ...record, product_id: record.Product.id }
     }
   }
 }
