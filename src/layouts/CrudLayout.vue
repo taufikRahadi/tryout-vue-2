@@ -40,7 +40,7 @@
               <th class="py-1 px-3 capitalize" v-for="column in columns" :key="column">
                 {{ column }}
               </th>
-              <th class="py-1 px-3">
+              <th class="py-1 px-3 w-10">
                 Action
               </th>
             </tr>
@@ -49,6 +49,13 @@
             <slot></slot>
           </tbody>
         </table>
+        <base-pagination 
+          class="px-3" 
+          :totalPages="data.totalPages"
+          :totalItems="data.totalItems"
+          :currentPage="currentPage"
+          @click-page="fetchDataPage"
+        />
       </base-card>
 
     </zoom-y-transition>
@@ -78,6 +85,9 @@ export default {
     ZoomYTransition
   },
   props: {
+    data: {
+      default: {}
+    },
     columns: {
       type: Array
     },
@@ -91,6 +101,9 @@ export default {
   computed: {
     ...mapGetters(['isEditing'])
   },
+  data: () => ({
+    currentPage: 1,
+  }),
   methods: {
     ...mapMutations(['setShowModal', 'setIsEditing']),
     showModal() {
@@ -98,10 +111,18 @@ export default {
       this.setShowModal()
       this.setIsEditing(false)
     },
-    async fetchData() {
+    async fetchDataPage(page) {
+      try {
+        await this.fetchData('?limit=10&page=' + page)
+      } catch (error) {
+        this.$Progress.fail()
+      }
+    },
+
+    async fetchData(payload = '?limit=10&page=1') {
       this.$Progress.start()
       try {
-        await this.$store.dispatch(`${this.moduleName}/fetchAll`)
+        await this.$store.dispatch(`${this.moduleName}/fetchAll`, payload)
         this.$Progress.finish()
       } catch (error) {
         console.error(error)
