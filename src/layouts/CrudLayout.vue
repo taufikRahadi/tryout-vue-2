@@ -34,14 +34,19 @@
         <table class="table-auto w-full">
           <thead>
             <tr class="border-b-2 border-b-gray-100">
-              <th class="w-10 py-1 pr-3">#</th>
+              <th class="py-1 px-3">
+                #
+              </th>
               <th class="py-1 px-3 capitalize" v-for="column in columns" :key="column">
                 {{ column }}
+              </th>
+              <th class="py-1 px-3">
+                Action
               </th>
             </tr>
           </thead>
           <tbody>
-            <slot name="table-rows"></slot>
+            <slot></slot>
           </tbody>
         </table>
       </base-card>
@@ -58,7 +63,20 @@ export default {
   props: {
     columns: {
       type: Array
+    },
+    moduleName: {
+      type: String
     }
+  },
+  methods: {
+    fetchData() {
+      this.$Progress.start()
+      this.$store.dispatch(`${this.moduleName}/fetchAll`)
+    }
+  },
+  mounted() {
+    this.fetchData()
+    this.$Progress.finish()
   }
 }
 </script>
