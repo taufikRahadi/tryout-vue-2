@@ -10,7 +10,9 @@ body {
 .card {
   @apply rounded-lg shadow-lg text-white font-nunito;
 }
-
+.router-link-exact-active {
+  @apply font-black text-white;
+}
 .card-header {
   @apply px-5 py-5 font-semibold;
 }
