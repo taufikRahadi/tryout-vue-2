@@ -33,7 +33,7 @@
         </template>
         <table class="table-auto w-full">
           <thead>
-            <tr class="border-t-2 border-b-2">
+            <tr class="border-b-2 border-b-gray-100">
               <th class="w-10 py-1 pr-3">#</th>
               <th class="py-1 px-3 capitalize" v-for="column in columns" :key="column">
                 {{ column }}
