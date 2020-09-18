@@ -6,6 +6,7 @@
       :formRecord="formRecord"
       :formComponent="formComponent"
       @reset-data="resetData"
+      :data="users"
     >
       <tr class="hover:bg-gray-700" v-for="(user, index) in users.data" :key="user.id">
         <td class="px-4 py-3">
