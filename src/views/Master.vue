@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="pb-5">
     <base-header />
     <div class="grid grid-cols-12">
       <div class="col-span-2">
