@@ -15,10 +15,10 @@ export default new Vuex.Store({
   },
   mutations: {
     setShowModal(state, val) {
-      state.showModal = val ? val : !state.showModal
+      state.showModal = val != undefined ? val : !state.showModal
     },
     setIsEditing(state, val) {
-      state.isEditing = val ? val : !state.isEditing
+      state.isEditing = val != undefined ? val : !state.isEditing
     }
   },
   actions: {
