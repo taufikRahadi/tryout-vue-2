@@ -49,8 +49,5 @@ export default {
       this.$emit('click-page', to)
     }
   },
-  mounted() {
-    console.log(this.totalPages)
-  }
 }
 </script>
