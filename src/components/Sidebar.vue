@@ -1,7 +1,7 @@
 <template>
   <div>
-    <div id="sidebar" class="bg-transparent text text-gray-300 font-nunito px-10 py-4">
-      <div class="flex flex-col justify-center font-light">
+    <div id="sidebar" class="sidebar">
+      <div class="sidebar-wrapper">
         <h3 class="text-gray-100 font-semibold pb-5">Pages</h3>
         <router-link to="/" class="flex py-5 items-center text-gray-200 hover:text-white">
           <svg class="mr-5 w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
