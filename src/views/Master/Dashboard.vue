@@ -25,8 +25,15 @@
           </div>
         </base-card>
       </div>
-      <base-card key="las" cardTitle="Last Income Product">
-      </base-card>
+      <div class="grid grid-cols-1 md:gap-5 md:grid-cols-2" key="last">
+        <base-card cardTitle="Latest Income Product">
+        </base-card>
+        <base-card cardTitle="Latest Outcome Product">
+        </base-card>
+      </div>
+      <div class="grid grid-cols-1 mt-5" key="lowstock">
+        <base-card cardTitle="Product With Low Stock" cardBg="bg-half"></base-card>
+      </div>
     </fade-transition>
   </div>
 </template>
