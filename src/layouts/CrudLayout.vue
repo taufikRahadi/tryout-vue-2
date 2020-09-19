@@ -155,7 +155,6 @@ export default {
           }
         } else {
           try {
-            console.log(this.isEditing)
             await this.$store.dispatch(`${this.moduleName}/storeData`, this.formRecord)
             this.$Progress.finish()
             this.setShowModal()
