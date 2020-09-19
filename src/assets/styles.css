@@ -7,12 +7,44 @@ body {
   @apply bg-gradient-to-r from-gray-600 to-gray-500;
 }
 
+.form-group {
+  @apply flex flex-col mb-5 justify-start items-center w-full;
+}
+
+.form-label {
+  @apply font-nunito font-semibold text-gray-700 w-full mb-3;
+}
+
 .sidebar {
   @apply bg-transparent text-gray-300 font-nunito px-10 py-4;
 }
 
 .sidebar-wrapper {
   @apply flex flex-col justify-center font-light;
+}
+
+.sidebar-link {
+  @apply flex py-5 items-center text-gray-200;
+}
+
+.sidebar-link:hover {
+  @apply text-white;
+}
+
+.sm-btn {
+  @apply rounded font-bold px-2 py-1 font-nunito flex items-center;
+}
+
+.sm-btn-danger {
+  @apply sm-btn bg-orange-600;
+}
+
+.sm-btn-warning {
+  @apply sm-btn bg-teal-500;
+}
+
+.sm-btn:hover {
+  @apply shadow-lg;
 }
 
 .card {
