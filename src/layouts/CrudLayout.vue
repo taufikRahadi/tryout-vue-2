@@ -114,6 +114,7 @@ export default {
     async fetchDataPage(page) {
       try {
         await this.fetchData('?limit=10&page=' + page)
+        this.currentPage = page
       } catch (error) {
         this.$Progress.fail()
       }
