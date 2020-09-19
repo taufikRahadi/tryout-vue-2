@@ -1,5 +1,7 @@
 # tryout-vue-2
 
+DEMO: https://vue-wms.herokuapp.com
+
 ### Registered Component
   - Card (card element)
   - Form group (wrap form label and input)
