@@ -19,7 +19,7 @@
           {{ product.total }}
         </td>
         <td>
-          <!-- {{ product.Product.name | capitalize }} -->
+          {{ product.Product.name | capitalize }}
         </td>
         <td>
           <action-button @fill-data="fillData" :record="product" :formRecord="formRecord" :moduleName="moduleName" />
