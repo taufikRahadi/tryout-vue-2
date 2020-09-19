@@ -23,7 +23,7 @@ export default {
     async storeData({ dispatch }, payload) {
       try {
           const { data } = await http.post('in', { data: payload })
-          dispatch('fetchAll')
+          await dispatch('fetchAll')
           return data
       } catch ({ response }) {
           throw new Error(response.data.message)
@@ -33,7 +33,7 @@ export default {
     async updateData({ dispatch }, payload) {
         try {
             const { data } = await http.put('in/' + payload.id, { data: payload})
-            dispatch('fetchAll')
+            await dispatch('fetchAll')
             return data
         } catch ({ response }) {
             throw new Error(response.data.message)
@@ -43,7 +43,7 @@ export default {
     async destroyData({ dispatch }, payload) {
         try {
             const { data } = await http.delete('in/' + payload.id)
-            dispatch('fetchAll')
+            await dispatch('fetchAll')
             return data
         } catch ({ response }) {
             throw new Error(response.data.message)

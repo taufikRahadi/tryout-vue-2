@@ -32,7 +32,7 @@ export default {
     async updateData({ dispatch }, payload) {
       try {
         const { data } = await http.put('product/' + payload.id, payload.data)
-        dispatch('fetchAll')
+        await dispatch('fetchAll')
         return data
       } catch ({ response }) {
           throw new Error(response.data.message)

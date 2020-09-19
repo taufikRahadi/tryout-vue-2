@@ -14,7 +14,7 @@ export default {
     async fetchAll({ commit }, payload = '?limit=10&page=1') {
       try {
         const { data } = await http.get('out' + payload)
-        commit('setProductsOut', data.data)
+        await commit('setProductsOut', data.data)
       } catch (error) {
         throw new Error(error)
       }
@@ -22,7 +22,7 @@ export default {
     async storeData({ dispatch }, payload) {
       try {
           const { data } = await http.post('out', { data: payload })
-          dispatch('fetchAll')
+          await dispatch('fetchAll')
           return data
       } catch ({ response }) {
           throw new Error(response.data.message)
@@ -32,7 +32,7 @@ export default {
     async updateData({ dispatch }, payload) {
         try {
             const { data } = await http.put('out/' + payload.id, { data: payload })
-            dispatch('fetchAll')
+            await dispatch('fetchAll')
             return data
         } catch ({ response }) {
             throw new Error(response.data.message)
@@ -42,7 +42,7 @@ export default {
     async destroyData({ dispatch }, payload) {
         try {
             const { data } = await http.delete('out/' + payload.id)
-            dispatch('fetchAll')
+            await dispatch('fetchAll')
             return data
         } catch ({ response }) {
             throw new Error(response.data.message)
