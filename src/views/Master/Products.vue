@@ -10,19 +10,19 @@
       :data="products"
     >
       <tr class="hover:bg-gray-700" v-for="(product, index) in products.data" :key="product.id">
-        <td class="px-4 py-3 font-bold text-center">
+        <td>
           {{ index + 1 }}
         </td>
-        <td class="px-4 py-3">
+        <td>
           {{ product.name | capitalize }}
         </td>
-        <td class="px-4 py-3">
+        <td>
           {{ product.stock }} Pcs
         </td>
-        <td class="px-4 py-3">
+        <td>
           {{ product.price | currency }}
         </td>
-        <td class="px-4 py-3">
+        <td>
           {{ product.supplier.full_name | capitalize }}
         </td>
         <td>

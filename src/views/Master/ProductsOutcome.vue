@@ -8,17 +8,17 @@
       @reset-data="resetData"
       :data="products"
     >
-      <tr class="hover:bg-gray-700" v-for="(product, index) in products.data" :key="product.id">
-        <td class="px-4 py-3">
+      <tr v-for="(product, index) in products.data" :key="product.id">
+        <td>
           {{ index + 1 }}
         </td>
-        <td class="px-4 py-3">
+        <td>
           {{ product.date | readableDate }}
         </td>
-        <td class="px-4 py-3">
+        <td>
           {{ product.total }}
         </td>
-        <td class="px-4 py-3">
+        <td>
           {{ product.Product.name | capitalize }}
         </td>
         <td>
@@ -59,7 +59,6 @@ export default {
       }
     },
     fillData(record) {
-      console.log(record)
       this.formRecord = {  ...record, product_id: record.Product.id }
     }
   }

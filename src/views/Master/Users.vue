@@ -9,22 +9,22 @@
       :data="users"
     >
       <tr class="hover:bg-gray-700" v-for="(user, index) in users.data" :key="user.id">
-        <td class="px-4 py-3">
+        <td>
           {{ index + 1 }}
         </td>
-        <td class="px-4 py-3">
+        <td>
           {{ user.full_name | capitalize }}
         </td>
-        <td class="px-4 py-3">
+        <td>
           {{ user.username }}
         </td>
-        <td class="px-4 py-3">
+        <td>
           {{ user.email }}
         </td>
-        <td class="px-4 py-3">
+        <td>
           {{ user.phone_number }}
         </td>
-        <td class="px-4 py-3">
+        <td>
           {{ user.role | capitalize }}
         </td>
         <td>
