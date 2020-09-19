@@ -1,7 +1,7 @@
 {
   "name": "Vue WMS",
   "short_name": "WMS",
-  "start_url": "",
+  "start_url": "dashboard",
   "display": "standalone",
   "theme_color": "#718096",
   "background_color": "#fff",
