@@ -6,6 +6,7 @@
       <base-card
         key="table-card"
         :cardTitle="`${$route.name} Page`"
+        v-if="data.totalItems > 0"
       >
         <template v-slot:card-header>
           <div class="flex justify-between items-center">
@@ -43,6 +44,15 @@
           :currentPage="currentPage"
           @click-page="fetchDataPage"
         />
+      </base-card>
+
+      <base-card key="img" v-else>
+        <div class="flex justify-center items-center">
+          <img src="@/assets/empty-content.svg" alt="" class="w-64">
+        </div>
+        <h3 class="text-2xl text-center font-bold text-gray-100">
+          Empty ~
+        </h3>
       </base-card>
 
     </zoom-y-transition>
