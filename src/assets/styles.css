@@ -24,7 +24,7 @@ body {
 }
 
 .sidebar-link {
-  @apply flex py-5 items-center text-gray-200;
+  @apply flex py-5 items-center text-gray-400;
 }
 
 .sidebar-link:hover {
