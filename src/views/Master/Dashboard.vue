@@ -40,7 +40,8 @@
 
 <script>
 import { FadeTransition } from 'vue2-transitions'
-import { mapActions, mapGetters } from 'vuex'
+import { mapGetters } from 'vuex'
+import http from '@/plugins/http'
 export default {
   components: {
     FadeTransition
@@ -56,21 +57,35 @@ export default {
     productsLength: 0
   }),
   methods: {
-    ...mapActions({
-      fetchProducts: 'products/fetchAll',
-      fetchUser: 'users/fetchAll'
-    }),
-    async fetchData() {
-      this.$Progress.start()
+    // ...mapActions({
+    //   fetchProducts: 'products/fetchAll',
+    //   fetchUser: 'users/fetchAll'
+    // }),
+    async fetchProducts() {
       try {
-        await this.fetchUser()
-        await this.fetchProducts()
-        this.userLength = this.$store.state.users.users.totalItems
-        this.productsLength = this.$store.state.products.products.totalItems
-        this.$Progress.finish()
+        const { data } = await http.get('product')
+        this.productsLength = data.data.totalItems
+        console.log(data)
       } catch (error) {
+        console.error(error)
         this.$Progress.fail()
       }
+    },
+    async fetchUser() {
+      try {
+        const { data } = await http.get('user')
+        console.log(data)
+        this.userLength = data.data.totalItems
+      } catch (error) {
+        console.error(error)
+        this.$Progress.fail()
+      }
+    },
+    async fetchData() {
+      this.$Progress.start()
+      this.fetchUser()
+      this.fetchProducts()
+      this.$Progress.finish()
     }
   },
   async created() {
