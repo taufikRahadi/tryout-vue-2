@@ -12,6 +12,7 @@ export default new Vuex.Store({
   state: {
     showModal: false,
     isEditing: false,
+    showSidebar: true,
   },
   mutations: {
     setShowModal(state, val) {
@@ -19,6 +20,9 @@ export default new Vuex.Store({
     },
     setIsEditing(state, val) {
       state.isEditing = val != undefined ? val : !state.isEditing
+    },
+    setShowSidebar(state, val) {
+      state.showSidebar = val != undefined ? val: !state.showSidebar
     }
   },
   actions: {
