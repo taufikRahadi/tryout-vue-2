@@ -63,8 +63,8 @@ export default {
     async fetchData() {
       this.$Progress.start()
       try {
+        this.fetchUser()
         await this.fetchProducts()
-        await this.fetchUser()
         this.userLength = this.$store.state.users.users.totalItems
         this.productsLength = this.$store.state.products.products.totalItems
         this.$Progress.finish()
