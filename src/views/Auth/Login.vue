@@ -1,8 +1,8 @@
 <template>
-  <div class="flex justify-center items-center h-screen">
+  <div class="flex md:px-0 px-10 justify-center items-center h-screen">
     <base-card
       cardBg="bg-half"
-      class="w-1/2"
+      class="w-full md:w-1/2"
     >
       <template v-slot:card-header>
         <h2 class="text-2xl font-black text-gray-900 uppercase">
