@@ -47,7 +47,6 @@ export default {
                         "Logout Success",
                         "success"
                     )
-                    console.log(this.$store.getters['auth/login'])
                     window.location.href = '/login'
                 } else {
                     this.$swal.fire(
