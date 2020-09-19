@@ -8,6 +8,7 @@
       :customSubmitAction="submitProduct"
       @reset-data="resetFormData"
       :data="products"
+      :errors="errors"
     >
       <tr class="hover:bg-gray-700" v-for="(product, index) in products.data" :key="product.id">
         <td>
@@ -55,9 +56,37 @@ export default {
     formComponent: ProductForm,
     moduleName: 'products',
     formRecord: {
-    }
+    },
+    errors: {}
   }),
   methods: {
+    validateData() {
+      const name = this.formRecord.name.length < 5
+      const stock = this.formRecord.stock.match([0-9]) || this.formRecord.stock === ''
+      const price = this.formRecord.price.match([0-9]) || this.formRecord.price === ''
+      const photo = this.formRecord.photo
+      let state = true
+      if (name) {
+        this.$set(this.errors, 'name', 'minimal 5 characters for product name')
+        state = false
+      }
+
+      if (stock) {
+        this.$set(this.errors, 'stock', 'product stock must be a number')
+        state = false
+      }
+
+      if (price) {
+        this.$set(this.errors, 'price', 'product price must be a number')
+        state = false
+      }
+
+      if (!photo) {
+        this.$set(this.errors, 'photo', 'photo cannot be null')
+        state = false
+      }
+      return state
+    },
     ...mapMutations({
       setShowModal: 'setShowModal',
     }),
@@ -122,11 +151,13 @@ export default {
     },
     async submitProduct() {
       this.$Progress.start()
-      if(this.isEditing) {
-        await this.editData()
-      } else {
-        const formData = this.fillData()
-        await this.createData(formData)
+      if (this.validateData()) {
+        if(this.isEditing) {
+          await this.editData()
+        } else {
+          const formData = this.fillData()
+          await this.createData(formData)
+        }
       }
     }
   }

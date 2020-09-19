@@ -7,6 +7,8 @@
       :formComponent="formComponent"
       @reset-data="resetData"
       :data="users"
+      :errors="errors"
+      @validate-data="validateData"
     >
       <tr class="hover:bg-gray-700" v-for="(user, index) in users.data" :key="user.id">
         <td>
@@ -54,9 +56,47 @@ export default {
     columns: ['Full Name', 'username', 'email', 'phone number', 'role'],
     formComponent: UserForm,
     moduleName: 'users',
-    formRecord: {}
+    formRecord: {},
+    errors: {}
   }),
   methods: {
+    validateData() {
+      const username = this.formRecord.username.length < 7
+      const full_name = this.formRecord.full_name.length < 7
+      const regex = {
+        email: /^(([^<>()[].,;:\s@"]+(.[^<>()[].,;:\s@"]+)*)|(".+"))@(([[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}])|(([a-zA-Z\-0-9]+.)+[a-zA-Z]{2,}))$/,
+        phone_number: /[0-9]/
+      }
+      const email = regex.email.test(this.formRecord.email)
+      const password = this.formRecord.password.length < 8
+      const phone_number = !regex.phone_number.test(this.formRecord.phone_number) || this.formRecord.phone_number.length < 8
+      let state = true
+      if (username) {
+        this.$set(this.errors, 'username', 'Minimal 7 characters for username')
+        state = false
+      }
+
+      if (full_name) {
+        this.$set(this.errors, 'full_name', 'Minimal 7 characters for full name')
+        state = false
+      }
+
+      if (!email) {
+        this.$set(this.errors, 'email', 'Your email address is invalid')
+        state = false
+      }
+
+      if (password) {
+        this.$set(this.errors, 'password', 'Password must contain at least 8 characters')
+        state = false
+      }
+
+      if(phone_number) {
+        this.$set(this.errors, 'phone_numbers', 'invalid phone numbers')
+        state = false
+      }
+      return state
+    },
     resetData() {
       this.formRecord = {
         full_name: '',

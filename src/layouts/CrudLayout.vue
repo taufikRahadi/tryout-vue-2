@@ -64,7 +64,7 @@
         :header="$route.name"
         v-model="$store.state.showModal"
       >
-        <component :is="formComponent" :formRecord="formRecord"></component>
+        <component :is="formComponent" :errors="errors" :formRecord="formRecord"></component>
         <template v-slot:footer>
           <div class="flex justify-between">
             <button type="submit" class="dark-btn">
@@ -86,6 +86,9 @@ export default {
   },
   props: {
     data: {
+      default: {}
+    },
+    errors: {
       default: {}
     },
     columns: {
@@ -136,41 +139,43 @@ export default {
         await this.customSubmitAction()
         this.$Progress.finish()
       } else {
-        if (this.isEditing) {
-          try {
-            await this.$store.dispatch(`${this.moduleName}/updateData`, this.formRecord)
-            this.$Progress.finish()
-            this.setShowModal()
-            this.$swal(
-              'Success',
-              'Data Updated',
-              'success'
-            )
-          } catch (error) {
-            this.$Progress.fail()
-            this.$swal(
-              'Failed',
-              'Fail Updating Data',
-              'error'
-            )
-          }
-        } else {
-          try {
-            await this.$store.dispatch(`${this.moduleName}/storeData`, this.formRecord)
-            this.$Progress.finish()
-            this.setShowModal()
-            this.$swal(
-              'Success',
-              'Data Created',
-              'success'
-            )
-          } catch (error) {
-            this.$Progress.fail()
-            this.$swal(
-              'Failed',
-              'Fail Creating Data',
-              'error'
-            )
+        if (this.$emit('validate-data')) {
+          if (this.isEditing) {
+            try {
+              await this.$store.dispatch(`${this.moduleName}/updateData`, this.formRecord)
+              this.$Progress.finish()
+              this.setShowModal()
+              this.$swal(
+                'Success',
+                'Data Updated',
+                'success'
+              )
+            } catch (error) {
+              this.$Progress.fail()
+              this.$swal(
+                'Failed',
+                'Fail Updating Data',
+                'error'
+              )
+            }
+          } else {
+            try {
+              await this.$store.dispatch(`${this.moduleName}/storeData`, this.formRecord)
+              this.$Progress.finish()
+              this.setShowModal()
+              this.$swal(
+                'Success',
+                'Data Created',
+                'success'
+              )
+            } catch (error) {
+              this.$Progress.fail()
+              this.$swal(
+                'Failed',
+                'Fail Creating Data',
+                'error'
+              )
+            }
           }
         }
       }

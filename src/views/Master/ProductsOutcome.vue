@@ -7,6 +7,8 @@
       :formComponent="formComponent"
       @reset-data="resetData"
       :data="products"
+      :errors="errors"
+      @validate-data="validateData"
     >
       <tr v-for="(product, index) in products.data" :key="product.id">
         <td>
@@ -48,9 +50,31 @@ export default {
     columns: ['date', 'total', 'product name'],
     formRecord: {},
     formComponent: ProductOutcomeForm,
-    moduleName: 'productsOutcome'
+    moduleName: 'productsOutcome',
+    errors: {}
   }),
   methods: {
+    validateData() {
+      const date = this.formRecord.date.length < 8
+      const total = /^[0-9]/.test(this.formRecord.total) | this.formRecord.total == 0
+      const product_id = this.formRecord.product_id.length < 1
+      let state = true
+      if (date) {
+        this.$set(this.errors, 'date', 'date cant be null')
+        state = false
+      }
+
+      if (total) {
+        this.$set(this.errors, 'total', 'invalid total')
+        state = false
+      }
+
+      if (product_id) {
+        this.$set(this.errors, 'product_id', 'invalid product')
+        state = false
+      }
+      return state
+    },
     resetData() {
       this.formRecord = {
         date: "",
