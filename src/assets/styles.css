@@ -48,7 +48,7 @@ body {
 }
 
 .card {
-  @apply rounded-lg shadow-lg text-white font-nunito;
+  @apply rounded-lg shadow-lg text-white font-nunito overflow-x-auto;
 }
 .router-link-exact-active {
   @apply font-black text-white;

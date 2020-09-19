@@ -5,7 +5,7 @@
       <slide-x-left-transition>
         <base-sidebar v-show="$store.state.showSidebar" class="transition-all duration-400 max-w-md"/>
       </slide-x-left-transition>
-      <div class="px-10 w-full">
+      <div class="px-10 w-full overflow-x-auto">
         <router-view></router-view>
       </div>
     </div>
@@ -21,6 +21,6 @@ export default {
     'base-sidebar': Sidebar,
     'base-header': Header,
     SlideXLeftTransition,
-  }
+  },
 }
 </script>

@@ -12,7 +12,7 @@ export default new Vuex.Store({
   state: {
     showModal: false,
     isEditing: false,
-    showSidebar: true,
+    showSidebar: false,
   },
   mutations: {
     setShowModal(state, val) {

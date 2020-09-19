@@ -1,7 +1,7 @@
 <template>
-  <div>
-    <page-header />
-    <base-card>
+  <zoom-y-transition group>
+    <page-header key="header" />
+    <base-card key="item">
       <div class="w-1/2">
         <form-group label="Report Type">
           <select class="input-group" v-model="type">
@@ -16,12 +16,16 @@
         Download
       </button>
     </base-card>
-  </div>
+  </zoom-y-transition>
 </template>
 
 <script>
 import http from '../../plugins/http'
+import { ZoomYTransition } from 'vue2-transitions'
 export default {
+  components: {
+    ZoomYTransition
+  },
   data: () => ({
     types: ['all', 'in', 'out'],
     type: ''
@@ -41,6 +45,9 @@ export default {
         )
       }
     }
+  },
+  mounted() {
+    this.$store.commit('setShowSidebar', false)
   }
 }
 </script>

@@ -191,6 +191,7 @@ export default {
   },
   mounted() {
     this.fetchData()
+    this.$store.commit('setShowSidebar', false)
   }
 }
 </script>

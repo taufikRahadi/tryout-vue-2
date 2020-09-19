@@ -7,7 +7,7 @@
   "background_color": "#fff",
   "icons": [
     {
-      "src": "./src/assets/log.png",
+      "src": "./log.png",
       "sizes": "512x512",
       "type": "image/png"
     }
