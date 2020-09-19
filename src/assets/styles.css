@@ -31,3 +31,23 @@ body {
 .dark-btn:hover {
   @apply shadow-lg;
 }
+
+.table-auto tbody tr:hover {
+  @apply bg-gray-700;
+}
+
+.table-col {
+  @apply px-4 py-3;
+}
+
+.table-row-index {
+  @apply font-bold text-center;
+}
+
+.table-auto tr td:first-child {
+  @apply table-row-index;
+}
+
+.table-auto tr td {
+  @apply table-col;
+}
