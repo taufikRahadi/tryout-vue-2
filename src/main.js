@@ -6,6 +6,7 @@ import './plugins/plugins'
 import './assets/styles.css'
 import './plugins/globalComponent'
 import './plugins/filters'
+import './registerServiceWorker'
 
 Vue.config.productionTip = false
 
