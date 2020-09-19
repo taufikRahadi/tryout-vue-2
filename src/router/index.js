@@ -57,6 +57,14 @@ const routes = [
         meta: {
           requiresAuth: true,
         },
+      },
+      {
+        name: 'print report',
+        path: 'print-report',
+        component: () => import(/* webpackChunkName: 'Print Layout' */'../views/Master/PrintReport.vue'),
+        meta: {
+          requiresAuth: true
+        }
       }
     ]
   },
