@@ -1,7 +1,7 @@
 <template>
   <div>
-    <div class="flex flex-col mb-5 justify-start items-center w-full">
-      <label class="font-nunito font-semibold text-gray-700 w-full mb-3">{{ label }}</label>
+    <div class="form-group">
+      <label class="form-label">{{ label }}</label>
       <slot></slot>
     </div>
   </div>
