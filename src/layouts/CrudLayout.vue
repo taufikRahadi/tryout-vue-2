@@ -202,7 +202,7 @@ export default {
       }
     }
   },
-  mounted() {
+  beforeMount() {
     this.fetchData()
     this.$store.commit('setShowSidebar', false)
   }

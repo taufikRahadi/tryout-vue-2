@@ -87,7 +87,7 @@ export default {
       this.fetchProducts()
     }
   },
-  async created() {
+  beforeMount() {
     this.fetchData()
     this.$store.commit('setShowSidebar', false)
   }
