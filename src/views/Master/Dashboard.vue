@@ -65,7 +65,7 @@ export default {
       try {
         const { data } = await http.get('product')
         this.productsLength = data.data.totalItems
-        console.log(data)
+        this.$Progress.finish()
       } catch (error) {
         console.error(error)
         this.$Progress.fail()
@@ -74,8 +74,8 @@ export default {
     async fetchUser() {
       try {
         const { data } = await http.get('user')
-        console.log(data)
         this.userLength = data.data.totalItems
+        this.$Progress.finish()
       } catch (error) {
         console.error(error)
         this.$Progress.fail()
@@ -85,11 +85,11 @@ export default {
       this.$Progress.start()
       this.fetchUser()
       this.fetchProducts()
-      this.$Progress.finish()
     }
   },
   async created() {
     this.fetchData()
+    this.$store.commit('setShowSidebar', false)
   }
 }
 </script>

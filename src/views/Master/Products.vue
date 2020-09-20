@@ -24,6 +24,9 @@
           {{ product.price | currency }}
         </td>
         <td>
+          <img :src="product.photo_url" alt="" width="45">
+        </td>
+        <td>
           {{ product.supplier.full_name | capitalize }}
         </td>
         <td>
@@ -42,7 +45,7 @@ import { mapGetters, mapMutations } from 'vuex'
 export default {
   components: {
     'crud-layout': CrudLayout,
-    ActionButton
+    ActionButton,
   },
   computed: {
     ...mapGetters({
@@ -52,7 +55,7 @@ export default {
     })
   },
   data: () => ({
-    columns: ['Name', 'Stock', 'Price', 'Supplier'],
+    columns: ['Name', 'Stock', 'Price', 'Photo', 'Supplier'],
     formComponent: ProductForm,
     moduleName: 'products',
     formRecord: {

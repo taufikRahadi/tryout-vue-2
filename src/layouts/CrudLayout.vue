@@ -137,7 +137,20 @@ export default {
         await this.$store.dispatch(`${this.moduleName}/fetchAll`, payload)
         this.$Progress.finish()
       } catch (error) {
-        console.error(error)
+        this.$Progress.fail()
+        this.$swal({
+          toast: true,
+          position: 'top-end',
+          showConfirmButton: false,
+          timer: 3000,
+          timerProgressBar: true,
+          icon: 'error',
+          title: 'Failed getting data',
+          onOpen: (toast) => {
+            toast.addEventListener('mouseenter', this.$swal.stopTimer)
+            toast.addEventListener('mouseleave', this.$swal.resumeTimer)
+          }
+        })
       }
     },
 
