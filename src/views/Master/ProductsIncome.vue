@@ -9,6 +9,7 @@
       :data="products"
       :errors="errors"
       @validate-data="validateData"
+      :url="url"
     >
       <tr v-for="(product, index) in products.data" :key="product.id">
         <td>
@@ -24,7 +25,13 @@
           {{ product.Product.name | capitalize }}
         </td>
         <td>
-          <action-button @fill-data="fillData" :record="product" :formRecord="formRecord" :moduleName="moduleName" />
+          <action-button 
+            @fill-data="fillData" 
+            :record="product" 
+            :formRecord="formRecord" 
+            :moduleName="moduleName"
+            :url="url"
+          />
         </td>
       </tr>
     </crud-layout>
@@ -51,7 +58,8 @@ export default {
     formRecord: {},
     formComponent: ProductIncomeForm,
     moduleName: 'productsIncome',
-    errors: {}
+    errors: {},
+    url: 'in',
   }),
   methods: {
     validateData() {

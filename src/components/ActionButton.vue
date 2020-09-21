@@ -24,7 +24,7 @@
 <script>
 export default {
   name: 'action-button',
-  props: ['record', 'formRecord', 'moduleName'],
+  props: ['record', 'formRecord', 'moduleName', 'url'],
   methods: {
     showEditModal() {
       this.$store.commit('setIsEditing', true)
@@ -40,28 +40,17 @@ export default {
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
         confirmButtonText: 'Yes, delete it!',
-      }).then(async ({ value }) => {
-        if (value) {
-          this.$Progress.start()
-          try {
-            await this.$store.dispatch(`${this.moduleName}/destroyData`, this.record)
-            this.$Progress.finish()
-            this.$swal(
-              'Success',
-              'Data deleted',
-              'success'
-            )
-          } catch (error) {
-            this.$Progress.fail()
-            this.$swal(
-              'Error',
-              'Fail deleting data',
-              'error'
-            )
-          }
-        }
       })
-    }
+        .then(async ({ value }) => {
+          if (value) {
+            await this.$store.dispatch('destroyData', {
+              url: this.url,
+              id: this.record.id,
+              moduleName: this.moduleName,
+            })
+          }
+        })
+    },
   }
 }
 </script>

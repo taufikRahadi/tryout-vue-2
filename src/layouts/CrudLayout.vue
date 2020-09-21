@@ -99,12 +99,9 @@ export default {
     errors: {
       default: {}
     },
-    columns: {
-      type: Array
-    },
-    moduleName: {
-      type: String
-    },
+    columns: Array,
+    moduleName: String,
+    url: String,
     formComponent: Object,
     formRecord: Object,
     customSubmitAction: Function
@@ -131,27 +128,11 @@ export default {
       }
     },
 
-    async fetchData(payload = '?limit=10&page=1') {
-      this.$Progress.start()
-      try {
-        await this.$store.dispatch(`${this.moduleName}/fetchAll`, payload)
-        this.$Progress.finish()
-      } catch (error) {
-        this.$Progress.fail()
-        this.$swal({
-          toast: true,
-          position: 'top-end',
-          showConfirmButton: false,
-          timer: 3000,
-          timerProgressBar: true,
-          icon: 'error',
-          title: 'Failed getting data',
-          onOpen: (toast) => {
-            toast.addEventListener('mouseenter', this.$swal.stopTimer)
-            toast.addEventListener('mouseleave', this.$swal.resumeTimer)
-          }
-        })
-      }
+    fetchData(payload = '?limit=10&page=1') {
+      this.$store.dispatch('fetchAll', {
+        moduleName: this.moduleName,
+        url: this.url + payload,
+      })
     },
 
     async submitAction() {
@@ -163,39 +144,26 @@ export default {
         if (this.$emit('validate-data')) {
           if (this.isEditing) {
             try {
-              await this.$store.dispatch(`${this.moduleName}/updateData`, this.formRecord)
+              await this.$store.dispatch('updateData', {
+                url: this.url,
+                id: this.formRecord.id,
+                moduleName: this.moduleName,
+                data: { data: this.formRecord },
+              })
               this.$Progress.finish()
-              this.setShowModal()
-              this.$swal(
-                'Success',
-                'Data Updated',
-                'success'
-              )
             } catch (error) {
               this.$Progress.fail()
-              this.$swal(
-                'Failed',
-                'Fail Updating Data',
-                'error'
-              )
             }
           } else {
             try {
-              await this.$store.dispatch(`${this.moduleName}/storeData`, this.formRecord)
+              this.$store.dispatch(`storeData`, {
+                url: this.url,
+                moduleName: this.moduleName,
+                data: { data: this.formRecord }
+              })
               this.$Progress.finish()
-              this.setShowModal()
-              this.$swal(
-                'Success',
-                'Data Created',
-                'success'
-              )
             } catch (error) {
               this.$Progress.fail()
-              this.$swal(
-                'Failed',
-                'Fail Creating Data',
-                'error'
-              )
             }
           }
         }

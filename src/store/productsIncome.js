@@ -7,7 +7,7 @@ export default {
     productsIn: [],
   },
   mutations: {
-    setProductsIn(state, data) {
+    setProductsIncome(state, data) {
       state.productsIn = data
     }
   },

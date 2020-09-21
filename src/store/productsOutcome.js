@@ -6,7 +6,7 @@ export default {
     productsOut: []
   },
   mutations: {
-    setProductsOut(state, data) {
+    setProductsOutcome(state, data) {
       state.productsOut = data
     }
   },

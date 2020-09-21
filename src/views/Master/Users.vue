@@ -9,6 +9,7 @@
       :data="users"
       :errors="errors"
       @validate-data="validateData"
+      :url="url"
     >
       <tr class="hover:bg-gray-700" v-for="(user, index) in users.data" :key="user.id">
         <td>
@@ -30,7 +31,13 @@
           {{ user.role | capitalize }}
         </td>
         <td>
-          <action-button @fill-data="fillData" :record="user" :moduleName="moduleName" :formRecord="formRecord" />
+          <action-button 
+            @fill-data="fillData" 
+            :record="user" 
+            :moduleName="moduleName" 
+            :formRecord="formRecord" 
+            :url="url"
+          />
         </td>
       </tr>
     </crud-layout>
@@ -57,7 +64,8 @@ export default {
     formComponent: UserForm,
     moduleName: 'users',
     formRecord: {},
-    errors: {}
+    errors: {},
+    url: 'user'
   }),
   methods: {
     validateData() {

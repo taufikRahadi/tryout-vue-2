@@ -9,6 +9,7 @@
       @reset-data="resetFormData"
       :data="products"
       :errors="errors"
+      :url="url"
     >
       <tr class="hover:bg-gray-700" v-for="(product, index) in products.data" :key="product.id">
         <td>
@@ -30,7 +31,13 @@
           {{ product.supplier.full_name | capitalize }}
         </td>
         <td>
-          <action-button @fill-data="updateData" :moduleName="moduleName" :formRecord="formRecord" :record="product"/>
+          <action-button 
+            @fill-data="updateData" 
+            :moduleName="moduleName" 
+            :formRecord="formRecord" 
+            :record="product"
+            :url="url"
+          />
         </td>
       </tr>
     </crud-layout>
@@ -58,6 +65,7 @@ export default {
     columns: ['Name', 'Stock', 'Price', 'Photo', 'Supplier'],
     formComponent: ProductForm,
     moduleName: 'products',
+    url: 'product',
     formRecord: {
     },
     errors: {}
@@ -116,50 +124,37 @@ export default {
     },
     async editData() {
       try {
-        await this.$store.dispatch('products/updateData', { id: this.formRecord.id, data: this.formRecord })
-        this.setShowModal()
+        await this.$store.dispatch('updateData', {
+          url: this.url,
+          moduleName: this.moduleName,
+          data: this.formRecord,
+          id: this.formRecord.id
+        })
         this.$Progress.finish()
-        this.$swal(
-          'Succes',
-          'Data updated',
-          'success'
-        )
       } catch (error) {
         this.$Progress.fail()
-        this.$swal(
-          'Failed',
-          'Error Updating Data',
-          'error'
-        )
       }
     },
     async createData(formData) {
       try {
-        await this.$store.dispatch('products/storeData', formData)
-        this.setShowModal()
+        this.$store.dispatch('storeData', {
+          url: this.url,
+          moduleName: this.moduleName,
+          data: formData
+        })
         this.$Progress.finish()
-        this.$swal(
-          'Success',
-          'Data Created',
-          'success'
-        )
       } catch (error) {
         this.$Progress.fail()
-        this.$swal(
-          'Failed',
-          'Error Creating Data',
-          'error'
-        )
       }
     },
-    async submitProduct() {
+    submitProduct() {
       this.$Progress.start()
       if (this.validateData()) {
         if(this.isEditing) {
-          await this.editData()
+          this.editData()
         } else {
           const formData = this.fillData()
-          await this.createData(formData)
+          this.createData(formData)
         }
       }
     }
